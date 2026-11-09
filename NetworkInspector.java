@@ -22,6 +22,11 @@ public class NetworkInspector {
             System.out.println(e.getMessage());
         }
 
-        
+        //connect using HTTPS
+
+        //display HTTP status code
+        //Display TLS version
+        //Print Total response size in bytes:
+
     }
 }
