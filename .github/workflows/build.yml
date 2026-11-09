@@ -17,8 +17,8 @@ jobs:
                 mvn -B package --file pom.xml
                 mkdir staging && cp target/*.jar staging
 
-#            - name: upload as artifact
-#              uses: actions/upload-artifcat@v2
-#              with:
-#                name: github-actions-artifact
-#                path: staging
+            - name: upload as artifact
+              uses: actions/upload-artifcat@v2
+              with:
+                name: github-actions-artifact
+                path: staging
