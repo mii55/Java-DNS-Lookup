@@ -8,6 +8,9 @@ import java.net.UnknownHostException;
 public class App {
     public static void main(String[] args){
         
+        for(int i = args.length;i<args.length;i++){
+            System.out.println(args[i]);
+        }
         if (args.length != 1){
             System.err.println("Usage: java NetworkInspector <host-name>");
             System.exit(1);
