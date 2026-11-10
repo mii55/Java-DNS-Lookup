@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 /**
  * Hello world!
  */
-public class App {
+public class NetworkInspector {
     public static void main(String[] args){
         
         for(int i = args.length;i<args.length;i++){

@@ -69,7 +69,7 @@
           <configuration>
             <archive>
               <manifest>
-                  <mainClass>com.mycompany.app.App</mainClass>
+                  <mainClass>com.mycompany.app.NetworkInspector</mainClass>
               </manifest>
             </archive>
           </configuration>
