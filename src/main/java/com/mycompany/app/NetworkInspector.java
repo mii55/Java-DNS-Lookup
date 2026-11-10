@@ -15,7 +15,7 @@ public class NetworkInspector {
             System.err.println("Usage: java NetworkInspector <host-name>");
             System.exit(1);
         }
-        String hostname =args[1];
+        String hostname =args[0];
 
         //perform DNS look up
         // display hostname & ALL resolved addresses
