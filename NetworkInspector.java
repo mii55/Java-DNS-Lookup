@@ -6,10 +6,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLContext;
 
 public class NetworkInspector {
@@ -36,16 +40,37 @@ public class NetworkInspector {
             System.out.println(e.getMessage());
         }
 
-        //connect using HTTPS
+        //connect using HTTP
         try {
-            URL url = new URI("https://"+hostname).toURL();
+            //URL url = new URI("https://"+hostname).toURL();
             try{
-                HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+                //HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
                 System.out.println("\nHTTPS Connection Successful\n");
 
-                connection.setRequestMethod("GET");
-                int responseCode = connection.getResponseCode();
-                System.out.println("Status Code:\n" + responseCode);
+                //connection.setRequestMethod("GET");
+                //HttpResponse response = connection.Get
+                //int responseCode = connection.getResponseCode();
+                
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://"+hostname))
+                .GET()
+                .build();
+                try {
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    
+                    System.out.println("Status Code:\n" + response.statusCode());
+
+                    
+                    System.out.println("TLS Version:" + response.sslSession().get().getProtocol()+"\n");
+
+                    //System.out.println("Response size: "+response.headers().toString()+"\n");
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                //System.out.println("Status Code:\n" + responseCode);
 
 
                 /*try{
@@ -55,7 +80,12 @@ public class NetworkInspector {
                 }catch(NoSuchAlgorithmException e){
                     System.err.println(e.getMessage());
                 }*/
-                System.out.println("TLS Version:" + connection.getSSLSession().toString());
+                //System.out.println("TLS Version:" + connection.getSSLSession()+"\n");//incorrect
+
+
+                //System.out.println(connection.getContent());
+
+                //System.out.println("Response size: "+connection.getContentLength()+"\n");
             }catch(IOException e){
                 System.err.println(e.getMessage());
             }
@@ -65,11 +95,6 @@ public class NetworkInspector {
         } catch (URISyntaxException e) {
             System.err.println(e.getMessage());
         }
-        
-
-        //display HTTP status code
-        //Display TLS version
-        //Print Total response size in bytes:
 
     }
 }
